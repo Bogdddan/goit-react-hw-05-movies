@@ -1,0 +1,11 @@
+.notF{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.notF button{
+    width: 100px;
+    height: 50px;
+}

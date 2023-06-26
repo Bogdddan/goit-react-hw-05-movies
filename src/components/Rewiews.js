@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 const Reviews = () => {
     const { movieId } = useParams();
     const [ movie , setMovie ] = useState(null);
-    console.log(movieId);
 
     useEffect(() => {
       const fetchRewievsDetails = async () => {
@@ -22,7 +21,7 @@ const Reviews = () => {
             );
             const result = await r.json();
             setMovie(result);
-            console.log(result);
+        
         } catch (error) {
           console.error(error);
         }

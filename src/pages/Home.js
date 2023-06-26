@@ -5,9 +5,7 @@ const Home = () => {
 
     const [movies, setMovies] = useState([]);
 
-    const bnsa = e => {
-      console.log(e.target.id);
-    }
+    
 
 
     useEffect(() => {
@@ -25,13 +23,13 @@ const Home = () => {
             }
           );
           const data = await response.json();
-          console.log(data);
+        
           const moviesData = data.results.map(result => ({
             id: result.id,
             title: result.title
           }));
           setMovies(moviesData);
-          console.log(moviesData);
+
         } catch (error) {
           console.error(error);
         }
@@ -47,7 +45,7 @@ const Home = () => {
           {movies.map((movie) => {
               return (
                 <li key={movie.id}>
-                  <Link to={`/movie/${movie.id}`} id={movie.id} onClick={() => bnsa(movie.id)}>
+                  <Link to={`/movie/${movie.id}`} id={movie.id}>
                     {movie.title}
                   </Link>
                 </li>

@@ -6,7 +6,6 @@ const Casts = () => {
 
   const { movieId } = useParams();
   const [casts , setCasts] = useState(null)
-  console.log(movieId);
   
   useEffect (() => {
     const fetchCasts = async () => {
@@ -24,7 +23,7 @@ const Casts = () => {
           }
         );
         const dataCasts = await res.json();
-        console.log(dataCasts);
+    
         setCasts(dataCasts);
       } catch (error) {
         console.log(error);

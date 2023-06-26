@@ -5,7 +5,7 @@ import css from './MovieDetails.module.css';
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
-  console.log(movieId);
+
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -23,7 +23,7 @@ const MovieDetails = () => {
           }
         );
         const data = await response.json();
-        console.log(data);
+        
         setMovie(data);
       } catch (error) {
         console.error(error);

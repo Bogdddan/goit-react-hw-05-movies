@@ -32,13 +32,13 @@ const Movies = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+      
         const moviesData = data.results.map(result => ({
           title: result.title,
           id: result.id
         }));
         setResult(moviesData);
-        console.log(moviesData);
+        // console.log(moviesData);
         // setResult(data.results.map(movie => movie.title));
       })
       .catch((err) => console.error(err));
