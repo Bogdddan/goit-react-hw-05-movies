@@ -31,6 +31,7 @@ const Home = () => {
             title: result.title
           }));
           setMovies(moviesData);
+          console.log(moviesData);
         } catch (error) {
           console.error(error);
         }

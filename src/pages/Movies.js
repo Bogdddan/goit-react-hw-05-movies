@@ -1,8 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Movies = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  // const [result , setResult] = useState([])
+  const [result, setResult] = useState([]);
 
   const handleQueryChange = (event) => {
     setSearchQuery(event.currentTarget.value.toLowerCase());
@@ -13,7 +14,7 @@ const Movies = () => {
     if (searchQuery.trim() === "") {
       throw new Error("Search query is empty");
     }
-  
+
     const options = {
       method: "GET",
       headers: {
@@ -22,7 +23,7 @@ const Movies = () => {
           "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYWNiZTlkZTY0MTI4OTM1OTE2YWUzNzRkMGNkNjA3NyIsInN1YiI6IjY0OTRhMDg4MzkxYjljMDBlODFiYTQzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.iTONktEdz4gCVm1GJD3NRI0zRCn5BZSM2hjCzfl__jc",
       },
     };
-  
+
     fetch(
       `https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1&query=${encodeURIComponent(
         searchQuery
@@ -31,15 +32,17 @@ const Movies = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        const results = data.results;
-        const paragraphs = results.map((result) => (
-          <p key={result.id}>{result.title}</p>
-        ));
-        console.log(paragraphs);
+        console.log(data);
+        const moviesData = data.results.map(result => ({
+          title: result.title,
+          id: result.id
+        }));
+        setResult(moviesData);
+        console.log(moviesData);
+        // setResult(data.results.map(movie => movie.title));
       })
       .catch((err) => console.error(err));
   };
-  
 
   return (
     <>
@@ -57,6 +60,17 @@ const Movies = () => {
           <span className="button-label">Search</span>
         </button>
       </form>
+      <ul>
+        {result.map((movie) =>{
+          return (
+            <li key={movie.id}>
+              <Link to={`/movie/${movie.id}`}>
+              {movie.title}
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
     </>
   );
 };
