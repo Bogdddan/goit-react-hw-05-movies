@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.info{
+    display: flex;
+}
+
+.infoText{
+    display: flex;
+    flex-direction: column;
+}
+
+.photo{
+    width: 250px;
+    margin-right: 15px;
+}

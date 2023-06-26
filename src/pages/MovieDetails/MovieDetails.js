@@ -1,18 +1,18 @@
 import { Link, Outlet, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import css from './MovieDetails.module.css';
 
 const MovieDetails = () => {
-  const { id } = useParams();
+  const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
-  console.log(id);
-  console.log(useParams());
+  console.log(movieId);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
-      if (!id) return;
+      if (!movieId) return;
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
+          `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`,
           {
             method: "GET",
             headers: {
@@ -31,7 +31,7 @@ const MovieDetails = () => {
     };
 
     fetchMovieDetails();
-  }, [id]);
+  }, [movieId]);
 
   if (!movie) {
     return <div>Loading...</div>;
@@ -39,14 +39,33 @@ const MovieDetails = () => {
 
   return (
     <>
-      <div>{movie.title}</div>
-      <div>{id}</div>
+      <h1>{movie.title}</h1>
+      <div className={css.info}>
+      {movie.poster_path && (
+        <img
+          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+          alt={movie.title}
+          className={css.photo}
+        />
+      )}
+      <div className={css.infoText}>
+        <h2>Overview</h2>
+        <div>{movie.overview}</div>
+        <h3>Genres</h3>
+        <ul>
+          {movie.genres.map((genre) => (
+            <li key={genre.id}>{genre.name}</li>
+          ))}
+        </ul>
+      </div>
+      </div>
+      <h3>Additional Information</h3>
       <ul>
         <li>
-          <Link to={`/movie/${id}/casts`}>Casts</Link>
+          <Link to={`/movie/${movieId}/casts`}>Casts</Link>
         </li>
         <li>
-          <Link to={`/movie/${id}/reviews`}>Reviews</Link>
+          <Link to={`/movie/${movieId}/reviews`}>Reviews</Link>
         </li>
       </ul>
       <Outlet />
@@ -55,3 +74,6 @@ const MovieDetails = () => {
 };
 
 export default MovieDetails;
+
+
+// console.log(useParams());

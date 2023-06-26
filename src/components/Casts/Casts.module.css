@@ -1,0 +1,9 @@
+.auhorPhoto{
+    width: 100px;
+
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+}
