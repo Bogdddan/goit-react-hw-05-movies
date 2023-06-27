@@ -1,10 +1,13 @@
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useParams , useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import css from './MovieDetails.module.css';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const navigate = useNavigate();
+
+  const goBackBtn = () => navigate('/');
 
 
   useEffect(() => {
@@ -39,6 +42,7 @@ const MovieDetails = () => {
 
   return (
     <>
+    <button onClick={goBackBtn}>Go back</button>
       <h1>{movie.title}</h1>
       <div className={css.info}>
       {movie.poster_path && (

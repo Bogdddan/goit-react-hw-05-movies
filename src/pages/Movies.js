@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 
 const Movies = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [result, setResult] = useState([]);
+  const navigate = useNavigate();
+
+  const goBackBtn = () => navigate('/');
 
   const handleQueryChange = (event) => {
     setSearchQuery(event.currentTarget.value.toLowerCase());
@@ -46,6 +49,7 @@ const Movies = () => {
 
   return (
     <>
+    <button onClick={goBackBtn}>Go back</button>
       <div>Мультіки будуть тут</div>
       <form onSubmit={handleSubmit}>
         <input
