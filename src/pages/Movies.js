@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import { Link , useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 const Movies = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [result, setResult] = useState([]);
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("query");
 
-  const goBackBtn = () => navigate('/');
+  const goBackBtnMovies = () => navigate("/");
 
   const handleQueryChange = (event) => {
     setSearchQuery(event.currentTarget.value.toLowerCase());
+    const nextQuery = event.target.value !== "" ? { query: event.target.value } : {};
+    setSearchParams(nextQuery);
   };
 
   const handleSubmit = (event) => {
@@ -35,22 +39,19 @@ const Movies = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-      
-        const moviesData = data.results.map(result => ({
+        const moviesData = data.results.map((result) => ({
           title: result.title,
-          id: result.id
+          id: result.id,
         }));
         setResult(moviesData);
-        // console.log(moviesData);
-        // setResult(data.results.map(movie => movie.title));
+        setSearchQuery(""); // Очищення поля введення
       })
       .catch((err) => console.error(err));
   };
 
   return (
     <>
-    <button onClick={goBackBtn}>Go back</button>
-      <div>Мультіки будуть тут</div>
+      <button onClick={goBackBtnMovies}>Go back</button>
       <form onSubmit={handleSubmit}>
         <input
           onChange={handleQueryChange}
@@ -65,14 +66,12 @@ const Movies = () => {
         </button>
       </form>
       <ul>
-        {result.map((movie) =>{
+        {result.map((movie) => {
           return (
             <li key={movie.id}>
-              <Link to={`/movie/${movie.id}`}>
-              {movie.title}
-              </Link>
+              <Link to={`/movie/${movie.id}`}>{movie.title}</Link>
             </li>
-          )
+          );
         })}
       </ul>
     </>

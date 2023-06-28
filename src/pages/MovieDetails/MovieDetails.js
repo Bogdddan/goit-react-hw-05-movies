@@ -7,7 +7,7 @@ const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const navigate = useNavigate();
 
-  const goBackBtn = () => navigate('/');
+  const goBackBtn = () => navigate('/movies');
 
 
   useEffect(() => {
