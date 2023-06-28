@@ -7,6 +7,7 @@ const Movies = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query");
+  console.log(query);
 
   const goBackBtnMovies = () => navigate("/");
 
