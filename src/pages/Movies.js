@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 const Movies = () => {
@@ -45,10 +45,17 @@ const Movies = () => {
           id: result.id,
         }));
         setResult(moviesData);
-        setSearchQuery(""); // Очищення поля введення
+        localStorage.setItem("searchResult", JSON.stringify(moviesData));
       })
       .catch((err) => console.error(err));
   };
+
+  useEffect(() => {
+    const storedResult = localStorage.getItem("searchResult");
+    if (storedResult) {
+      setResult(JSON.parse(storedResult));
+    }
+  }, []);
 
   return (
     <>
